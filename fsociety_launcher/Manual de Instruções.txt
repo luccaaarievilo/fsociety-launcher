@@ -1,0 +1,13 @@
+Para instalar o launcher do fsociety, siga estes passos:
+1: baixe o .zip (botão verde escrito code ou código.)
+2: extraia tudo
+3: abra seu terminal e rode o install_tools
+(o terceiro passo pode demorar, não aborte, leva de 10 min até 2 hrs(estimativa)
+4: rode nano ~/fsociety.sh
+5: copie o conteudo de fsociety.sh e cole (Ctrl + C (copiar) e clique o botão direito do mouse (colar) salve (Ctrl + O) e saia (Ctrl + X)
+6: rode no terminal: nano ~/fsociety_ascii.txt, vá em ASCII no .zip extraído e copie tudo dentro de ASCII e cole, salve (Ctrl + O) e saia (Ctrl + X)
+7: rode nano ~/bashsrc
+8: vá ao final (cuidado para não fazer nada pois se modificar pode quebrar seu terminal) e cole APENAS o conteudo de bash
+9: reinicie o terminal (abra e feche)
+10: rode bash ~/fsociety.sh ou feche e abra o terminal
+11: Aproveite, use apenas em laboratório, quaisquer ações ilegais não são responsabilidade minha

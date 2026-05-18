@@ -1,0 +1,168 @@
+#!/bin/bash
+
+TOOLS=("nmap" "hydra" "dirb" "gobuster" "sqlmap" "nikto" "theharvester" "amass" "recon-ng" "wfuzz" "aircrack-ng" "burpsuite" "ghostscan")
+
+while true
+do
+    clear
+
+    cat ~/fsociety_ascii.txt | lolcat -a -d 2
+    echo ""
+
+    fastfetch --logo small
+    echo ""
+
+    echo "Public IP: $(curl -s ifconfig.me)"
+    echo ""
+
+    count=0
+    for tool in "${TOOLS[@]}"; do
+        if command -v $tool &> /dev/null; then
+            ((count++))
+        fi
+    done
+
+    echo "Loaded Tools: $count"
+    echo ""
+    echo "══════════════════════════════════════"
+    echo "            FSOCIETY TOOLKIT"
+    echo "══════════════════════════════════════"
+    echo ""
+    echo "1) Recon"
+    echo "2) Web"
+    echo "3) Exploit"
+    echo "4) Password"
+    echo "5) Wireless"
+    echo "6) GhostScan (LAB ONLY)"
+    echo "7) Open Normal Shell"
+    echo "8) Exit"
+    echo ""
+
+    read -p "Select an option: " main
+
+    case $main in
+
+        1)
+            clear
+            echo "RECON TOOLS"
+            echo "1) nmap"
+            echo "2) amass"
+            echo "3) theHarvester"
+            read -p "Choose: " recon
+
+            case $recon in
+                1)
+                    read -p "Target IP: " target
+                    nmap -sC -sV $target
+                    ;;
+                2)
+                    read -p "Domain: " domain
+                    amass enum -d $domain
+                    ;;
+                3)
+                    read -p "Domain: " domain
+                    theHarvester -d $domain -b all
+                    ;;
+            esac
+            read -p "Press Enter to return..."
+            ;;
+
+        2)
+            clear
+            echo "WEB TOOLS"
+            echo "1) dirb"
+            echo "2) gobuster"
+            echo "3) nikto"
+            echo "4) sqlmap"
+            echo "5) burpsuite"
+            echo "6) ffuf"
+            read -p "Choose: " web
+
+            case $web in
+                1)
+                    read -p "URL: " url
+                    dirb $url
+                    ;;
+                2)
+                    read -p "URL: " url
+                    read -p "Wordlist path: " wordlist
+                    gobuster dir -u $url -w $wordlist
+                    ;;
+                3)
+                    read -p "Target URL: " url
+                    nikto -h $url
+                    ;;
+                4)
+                    read -p "Target URL: " url
+                    sqlmap -u $url --batch --dbs
+                    ;;
+                5)
+                    export LIBGL_ALWAYS_SOFTWARE=1
+                    burpsuite &
+                    disown
+                    ;;
+                6)
+                    read -p "Target URL (use FUZZ): " url
+                    read -p "Wordlist path: " wordlist
+                    ffuf -u $url -w $wordlist -c
+                    ;;
+            esac
+            read -p "Press Enter to return..."
+            ;;
+
+        3)
+            clear
+            msfconsole
+            read -p "Press Enter to return..."
+            ;;
+
+        4)
+            clear
+            echo "1) Hydra"
+            echo "2) John"
+            read -p "Choose: " pass
+
+            case $pass in
+                1)
+                    read -p "Target IP: " target
+                    read -p "Username: " user
+                    read -p "Password list path: " passlist
+                    read -p "Service (ssh, ftp, etc): " service
+                    hydra -l $user -P $passlist $service://$target
+                    ;;
+                2)
+                    read -p "Hash file path: " hashfile
+                    john $hashfile
+                    ;;
+            esac
+            read -p "Press Enter to return..."
+            ;;
+
+        5)
+            clear
+            read -p "Capture file (.cap): " capfile
+            aircrack-ng $capfile
+            read -p "Press Enter to return..."
+            ;;
+
+        6)
+            clear
+            read -p "Target (LAB ONLY): " target
+            ghostscan -t $target --mode standard
+            read -p "Press Enter to return..."
+            ;;
+
+        7)
+            exec bash
+            ;;
+
+        8)
+            exit
+            ;;
+
+        *)
+            echo "Invalid option"
+            sleep 1
+            ;;
+    esac
+done

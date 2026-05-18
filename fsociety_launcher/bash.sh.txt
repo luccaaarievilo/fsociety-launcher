@@ -1,0 +1,10 @@
+
+        export PATH="$HOME/.local/bin:$PATH"
+# Start fsociety launcher only in interactive terminal
+if [[ $- == *i* ]]; then
+    echo ""
+    echo "Press ENTER to start fsociety launcher"
+    echo "Press CTRL+C to use normal terminal"
+    read
+    exec ~/fsociety.sh
+       fi

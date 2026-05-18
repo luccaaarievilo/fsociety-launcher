@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y nmap hydra dirb gobuster sqlmap nikto theharvester amass recon-ng wfuzz aircrack-ng burpsuite john ffuf fastfetch lolcat curl pipx && pipx install holehe && pipx ensurepath && git clone https://github.com/scf13/ghostscan.git && sudo bash ghostscan/install.sh
